@@ -1,0 +1,54 @@
+def input_matrix(rows, cols):
+    matrix = []
+    for i in range(rows):
+        row = [int(input(f"Enter element at position ({i + 1}, {j + 1}): ")) for j in range(cols)]
+        matrix.append(row)
+    return matrix
+
+def print_matrix(matrix):
+    for row in matrix:
+        print(row)
+
+def add_matrices(matrix1, matrix2):
+    return [[matrix1[i][j] + matrix2[i][j] for j in range(len(matrix1[0]))] for i in range(len(matrix1))]
+
+def subtract_matrices(matrix1, matrix2):
+    return [[matrix1[i][j] - matrix2[i][j] for j in range(len(matrix1[0]))] for i in range(len(matrix1))]
+
+def multiply_matrices(matrix1, matrix2):
+    result = [[0 for _ in range(len(matrix2[0]))] for _ in range(len(matrix1))]
+    for i in range(len(matrix1)):
+        for j in range(len(matrix2[0])):
+            for k in range(len(matrix2)):
+                result[i][j] += matrix1[i][k] * matrix2[k][j]
+    return result
+
+def transpose_matrix(matrix):
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+
+rows_x = int(input("Enter the number of rows for the first matrix: "))
+cols_x = int(input("Enter the number of columns for the first matrix: "))
+matrix_x = input_matrix(rows_x, cols_x)
+
+rows_y = int(input("Enter the number of rows for the second matrix: "))
+cols_y = int(input("Enter the number of columns for the second matrix: "))
+matrix_y = input_matrix(rows_y, cols_y)
+
+if cols_x != rows_y:
+    print("Matrix multiplication is not possible due to incompatible dimensions.")
+else:
+    result_multiply = multiply_matrices(matrix_x, matrix_y)
+    print("\nThe product of matrices is:")
+    print_matrix(result_multiply)
+
+result_add = add_matrices(matrix_x, matrix_y)
+print("\nThe element-wise addition of matrices is:")
+print_matrix(result_add)
+
+result_subtract = subtract_matrices(matrix_x, matrix_y)
+print("\nThe element-wise subtraction of matrices is:")
+print_matrix(result_subtract)
+
+result_transpose = transpose_matrix(matrix_x)
+print("\nThe transpose of the first matrix is:")
+print_matrix(result_transpose)
